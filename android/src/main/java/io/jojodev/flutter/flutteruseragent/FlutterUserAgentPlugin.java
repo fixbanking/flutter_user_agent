@@ -11,18 +11,21 @@ import android.webkit.WebView;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** FlutterUserAgentPlugin */
-public class FlutterUserAgentPlugin implements MethodCallHandler {
-  /** Plugin registration. */
-  public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_user_agent");
-    channel.setMethodCallHandler(new FlutterUserAgentPlugin(registrar.context()));
+public class FlutterUserAgentPlugin implements FlutterPlugin, MethodCallHandler {
+
+   @Override
+  public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
+    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "plugin_codelab");
+    channel.setMethodCallHandler(this);
   }
 
   private final Context context;
@@ -112,5 +115,19 @@ public class FlutterUserAgentPlugin implements MethodCallHandler {
 
     // NOTE: This can occasionally cause a segfault below API 17 (4.2)
     webView.destroy();
+  }
+
+    @Override
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+     webView.loadUrl("about:blank");
+    webView.stopLoading();
+
+    webView.clearHistory();
+    webView.removeAllViews();
+    webView.destroyDrawingCache();
+
+    // NOTE: This can occasionally cause a segfault below API 17 (4.2)
+    webView.destroy();
+    channel.setMethodCallHandler(null);
   }
 }
