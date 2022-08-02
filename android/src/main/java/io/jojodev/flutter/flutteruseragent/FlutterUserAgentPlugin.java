@@ -21,10 +21,11 @@ import io.flutter.plugin.common.MethodChannel.Result;
 
 /** FlutterUserAgentPlugin */
 public class FlutterUserAgentPlugin implements FlutterPlugin, MethodCallHandler {
+  private MethodChannel channel;
 
    @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "plugin_codelab");
+    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_user_agent");
     channel.setMethodCallHandler(this);
   }
 
