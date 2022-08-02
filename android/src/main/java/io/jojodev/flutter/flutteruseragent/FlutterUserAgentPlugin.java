@@ -120,15 +120,6 @@ public class FlutterUserAgentPlugin implements FlutterPlugin, MethodCallHandler 
 
     @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-     webView.loadUrl("about:blank");
-    webView.stopLoading();
-
-    webView.clearHistory();
-    webView.removeAllViews();
-    webView.destroyDrawingCache();
-
-    // NOTE: This can occasionally cause a segfault below API 17 (4.2)
-    webView.destroy();
     channel.setMethodCallHandler(null);
   }
 }
