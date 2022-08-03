@@ -22,6 +22,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 /** FlutterUserAgentPlugin */
 public class FlutterUserAgentPlugin implements FlutterPlugin, MethodCallHandler {
   private MethodChannel channel;
+  private Context context;
 
    @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
