@@ -31,7 +31,6 @@ public class FlutterUserAgentPlugin implements FlutterPlugin, MethodCallHandler 
     channel.setMethodCallHandler(this);
   }
 
-  private final Context context;
   private Map<String, Object> constants;
 
   @Override
