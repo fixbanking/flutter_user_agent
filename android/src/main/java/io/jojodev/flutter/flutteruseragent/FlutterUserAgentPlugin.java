@@ -25,7 +25,7 @@ public class FlutterUserAgentPlugin implements FlutterPlugin, MethodCallHandler 
 
    @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    this.context = binding.getApplicationContext();
+    this.context = flutterPluginBinding.getApplicationContext();
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_user_agent");
     channel.setMethodCallHandler(this);
   }
